@@ -42,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    ## additional apps
+    'poll',
+    'api',
+
     ## drf
     'rest_framework',
     'rest_framework.authtoken',
@@ -140,9 +144,11 @@ REST_FRAMEWORK = {
         "api.authentication.TokenAuthentication"
     ],
     "DEFAULT_PERMISSION_CLASSES":[
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly"
+        "rest_framework.permissions.IsAuthenticated"
     ],
 
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE" : 10
 }
+
+AUTH_USER_MODEL='api.Users'
