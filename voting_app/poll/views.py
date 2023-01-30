@@ -2,12 +2,11 @@ from rest_framework import generics
 
 from .models import Parties, Poll
 from .serializers import PollSerializer, PartySerializer
-from api.permissions import IsStaffEditorPermission
 
+from rest_framework import permissions
 from api.authentication import TokenAuthentication
 
-from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin
-
+from api.mixins import StaffEditorPermissionMixin, UserQuerySetMixin, UserEditSetMixin
 
 
 
@@ -39,7 +38,7 @@ class PollDetailAPIView(
     
 
 class PollUpdateAPIView(
-    UserQuerySetMixin,
+    UserEditSetMixin,
     StaffEditorPermissionMixin,
     generics.UpdateAPIView):
     queryset = Poll.objects.all()
@@ -47,7 +46,7 @@ class PollUpdateAPIView(
     lookup_field = 'pk'
 
 
-class PollDeleteAPIView(UserQuerySetMixin,
+class PollDeleteAPIView(UserEditSetMixin,
     StaffEditorPermissionMixin,
     generics.DestroyAPIView):
 
@@ -60,12 +59,13 @@ class PollDeleteAPIView(UserQuerySetMixin,
 
 class PartiesCreateAPIView(
     UserQuerySetMixin,
-    StaffEditorPermissionMixin,
+    # StaffEditorPermissionMixin,
     generics.ListCreateAPIView):
 
     queryset = Parties.objects.all()
     
     serializer_class = PartySerializer
+    permission_classes = [permissions.DjangoModelPermissions]
 
 
     def perform_create(self, serializer):
@@ -80,7 +80,7 @@ class PartiesDetailAPIView(
 
     queryset = Parties.objects.all()
     serializer_class = PartySerializer
-    
+    permission_classes = [permissions.IsAuthenticated]
 
 class PartiesUpdateAPIView(
     UserQuerySetMixin,

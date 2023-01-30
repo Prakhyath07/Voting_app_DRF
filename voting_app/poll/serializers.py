@@ -8,7 +8,7 @@ from .models import Poll, Parties
 class UserPublicSerializer(serializers.Serializer):
 
     username = serializers.CharField(read_only = True)
-    id = serializers.IntegerField(read_only = True)
+    # id = serializers.IntegerField(read_only = True)
 
 class PartySerializer(serializers.ModelSerializer):
 
@@ -30,6 +30,7 @@ class PartySerializer(serializers.ModelSerializer):
 class PollSerializer(serializers.ModelSerializer):
    
     owner = UserPublicSerializer( read_only = True)
+    
     # voted = PartySerializer(read_only = False)
     # voted = serializers.CharField(source = 'voted.party')
     class Meta:
@@ -49,5 +50,6 @@ class PollSerializer(serializers.ModelSerializer):
         
         rep['voted'] = instance.voted.party
         return rep
+    
     
     
