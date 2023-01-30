@@ -151,4 +151,4 @@ REST_FRAMEWORK = {
     "PAGE_SIZE" : 10
 }
 
-AUTH_USER_MODEL='api.Users'
+# AUTH_USER_MODEL='api.Users'

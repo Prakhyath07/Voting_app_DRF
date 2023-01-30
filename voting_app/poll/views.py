@@ -21,10 +21,9 @@ class PollCreateAPIView(
     
     serializer_class = PollSerializer
 
-    
-
     def perform_create(self, serializer):
         print(self.request.data.get('voted'))
+        print(serializer.validated_data)
         voted = self.request.data.get('voted')
         voted = Parties(voted)
         serializer.save(owner = self.request.user, voted= voted)

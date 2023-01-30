@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 from rest_framework.authtoken.views import obtain_auth_token
-
+app_name='poll'
 urlpatterns = [
     path('', views.PollCreateAPIView.as_view(), name='Poll-list'),
     path('<int:pk>/', views.PollDetailAPIView.as_view(), name='Poll-detail'),
